@@ -37,7 +37,7 @@ pipeline:
                   identifier: npm
                   spec:
                     connectorRef: docker_hub_toc_v
-                    image: docker
+                    image: centos:latest
                     shell: Sh
                     command: |-
                       npm install
