@@ -1,0 +1,44 @@
+pipeline:
+  name: react-store
+  identifier: reactstore
+  projectIdentifier: Default_Project_1660822260697
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github
+        repoName: karthik7996/react-store
+        build: <+input>
+  stages:
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesHosted
+            spec:
+              identifier: k8s-hosted-infra
+          serviceDependencies:
+            - identifier: docker
+              name: docker
+              type: Service
+              spec:
+                connectorRef: docker_hub_toc_v
+                image: docker
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: npm
+                  identifier: npm
+                  spec:
+                    connectorRef: docker_hub_toc_v
+                    image: "npm "
+                    shell: Sh
+                    command: |-
+                      npm install
+                      npm start
